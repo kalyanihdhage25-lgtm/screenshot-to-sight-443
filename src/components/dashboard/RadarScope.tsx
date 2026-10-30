@@ -214,7 +214,7 @@ export function RadarScope({ t }: { t: Telemetry }) {
       <div className="grid flex-1 gap-4 lg:grid-cols-[1fr_15rem]">
         <div
           ref={wrapRef}
-          className="relative h-64 overflow-hidden rounded-lg border border-border bg-background/60 sm:h-80"
+          className="relative h-64 overflow-hidden rounded-lg border border-border bg-background/60 sm:h-80 xl:h-[30rem]"
         >
           <canvas ref={canvasRef} className="absolute inset-0" />
           {!live && (
@@ -236,7 +236,7 @@ export function RadarScope({ t }: { t: Telemetry }) {
               value={nearest !== null ? `${nearest.toFixed(0)} cm` : "None"}
               className={levelText[zone]}
             />
-            <Readout label="Objects (1.5 s)" value={live ? String(recent.length) : "--"} />
+            <Readout label="Echoes" value={live ? String(recent.length) : "--"} />
           </div>
           <Zone
             active={zone === "safe"}

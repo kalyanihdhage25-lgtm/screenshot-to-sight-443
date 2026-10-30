@@ -237,6 +237,7 @@ export function useTelemetry() {
     wasOnline.current = false;
     setVitals(emptyVitals);
     setHrHistory([]);
+    setAlerts([]);
     setRadarReadout({ angle: 90, distance: null });
     setEcgRate(0);
   }, []);
@@ -329,12 +330,17 @@ export function useTelemetry() {
   useEffect(() => {
     if (deviceOnline && !wasOnline.current) {
       wasOnline.current = true;
-      pushAlert({ level: "safe", source: "Device", message: "ESP32 connected — data streaming" });
+      pushAlert({
+        level: "safe",
+        source: "Device",
+        message: mode === "demo" ? "Demo simulator started" : "ESP32 connected — data streaming",
+      });
     } else if (!deviceOnline && wasOnline.current) {
       wasOnline.current = false;
-      pushAlert({ level: "warning", source: "Device", message: "ESP32 stopped sending data" });
+      if (mode === "live")
+        pushAlert({ level: "warning", source: "Device", message: "ESP32 stopped sending data" });
     }
-  }, [deviceOnline, pushAlert]);
+  }, [deviceOnline, pushAlert, mode]);
 
   return {
     mode,
