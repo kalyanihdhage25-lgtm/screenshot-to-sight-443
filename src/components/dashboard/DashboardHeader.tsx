@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 import type { Telemetry } from "@/lib/telemetry/useTelemetry";
 
 export function DashboardHeader({ t }: { t: Telemetry }) {
-  const clock = new Date(t.now);
   return (
     <header className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex items-start gap-4">
@@ -42,7 +41,7 @@ export function DashboardHeader({ t }: { t: Telemetry }) {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="readout hidden rounded-md border border-border bg-panel px-3 py-1.5 text-sm text-muted-foreground sm:block">
-          {clock.toLocaleTimeString([], { hour12: false })}
+          {t.now ? new Date(t.now).toLocaleTimeString([], { hour12: false }) : "--:--:--"}
         </div>
         <div
           role="tablist"

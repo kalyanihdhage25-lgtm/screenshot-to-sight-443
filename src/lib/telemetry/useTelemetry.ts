@@ -78,7 +78,7 @@ export function useTelemetry() {
   const [vitals, setVitals] = useState<Vitals>(emptyVitals);
   const [hrHistory, setHrHistory] = useState<{ t: number; v: number }[]>([]);
   const [alerts, setAlerts] = useState<AlertEntry[]>([]);
-  const [now, setNow] = useState(() => Date.now());
+  const [now, setNow] = useState(0); // set after hydration to avoid SSR mismatch
   const [ecgRate, setEcgRate] = useState(0);
   const [radarReadout, setRadarReadout] = useState<{ angle: number; distance: number | null }>({
     angle: 90,
@@ -310,6 +310,7 @@ export function useTelemetry() {
 
   // 1 Hz ticker: clock, ECG frequency, device online/offline transitions.
   useEffect(() => {
+    setNow(Date.now());
     const id = window.setInterval(() => {
       const t = Date.now();
       setNow(t);
