@@ -111,7 +111,7 @@ export function EcgMonitor({ t }: { t: Telemetry }) {
       let mx = -Infinity;
       let valid = 0;
       for (let i = 0; i < data.length; i++) {
-        const v = data[i];
+        const v = data[i] ?? Number.NaN;
         if (Number.isNaN(v)) continue;
         valid++;
         if (v < mn) mn = v;
@@ -133,7 +133,7 @@ export function EcgMonitor({ t }: { t: Telemetry }) {
         let started = false;
         const step = w / Math.max(1, data.length - 1);
         for (let i = 0; i < data.length; i++) {
-          const v = data[i];
+          const v = data[i] ?? Number.NaN;
           if (Number.isNaN(v)) {
             started = false;
             continue;
@@ -149,7 +149,7 @@ export function EcgMonitor({ t }: { t: Telemetry }) {
         ctx.shadowBlur = 0;
 
         // Leading dot.
-        const lastV = data[data.length - 1];
+        const lastV = data[data.length - 1] ?? Number.NaN;
         if (!Number.isNaN(lastV) && !pausedRef.current) {
           ctx.fillStyle = colors.ecg;
           ctx.beginPath();
@@ -238,6 +238,6 @@ function readWindow(buf: Telemetry["buffers"]["current"], rate: number) {
   const n = Math.min(cap, Math.max(50, Math.round(WINDOW_SEC * rate)));
   const out = new Float32Array(n);
   const start = (buf.ecgWrite - n + cap) % cap;
-  for (let i = 0; i < n; i++) out[i] = buf.ecg[(start + i) % cap];
+  for (let i = 0; i < n; i++) out[i] = buf.ecg[(start + i) % cap] ?? Number.NaN;
   return out;
 }

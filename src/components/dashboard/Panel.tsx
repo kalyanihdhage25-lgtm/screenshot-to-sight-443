@@ -9,11 +9,11 @@ import { levelBorder, levelGlow } from "./level";
 
 interface PanelProps {
   title: string;
-  icon?: ReactNode;
-  level?: Level;
-  levelLabel?: string;
-  actions?: ReactNode;
-  className?: string;
+  icon?: ReactNode | undefined;
+  level?: Level | undefined;
+  levelLabel?: string | undefined;
+  actions?: ReactNode | undefined;
+  className?: string | undefined;
   children: ReactNode;
 }
 
@@ -42,6 +42,6 @@ export function Panel({ title, icon, level, levelLabel, actions, className, chil
   );
 }
 
-export function LevelBadge({ level, label }: { level: Level; label?: string }) {
+export function LevelBadge({ level, label }: { level: Level; label?: string | undefined }) {
   return <Badge variant={level}>{label ?? LEVEL_LABEL[level]}</Badge>;
 }
