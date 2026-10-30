@@ -138,10 +138,10 @@ export function Spo2Card({ t }: { t: Telemetry }) {
               return (
                 <line
                   key={m}
-                  x1={80 + (r - 9) * Math.cos(a)}
-                  y1={80 + (r - 9) * Math.sin(a)}
-                  x2={80 + (r + 9) * Math.cos(a)}
-                  y2={80 + (r + 9) * Math.sin(a)}
+                  x1={round2(80 + (r - 9) * Math.cos(a))}
+                  y1={round2(80 + (r - 9) * Math.sin(a))}
+                  x2={round2(80 + (r + 9) * Math.cos(a))}
+                  y2={round2(80 + (r + 9) * Math.sin(a))}
                   stroke="var(--foreground)"
                   strokeOpacity={0.5}
                   strokeWidth={2}
@@ -226,3 +226,5 @@ function EmptyChart({ text }: { text: string }) {
     </div>
   );
 }
+
+const round2 = (n: number) => Math.round(n * 100) / 100;
