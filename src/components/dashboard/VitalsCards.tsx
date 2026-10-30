@@ -166,7 +166,7 @@ export function Spo2Card({ t }: { t: Telemetry }) {
   );
 }
 
-export function BloodPressureCard({ t }: { t: Telemetry }) {
+export function BloodPressureCard({ t, className }: { t: Telemetry; className?: string }) {
   const { systolic, diastolic } = t.vitals;
   const connected = systolic !== null && diastolic !== null && systolic > 0 && diastolic > 0;
   const level = connected ? bpLevel(systolic, diastolic) : "idle";
@@ -177,7 +177,7 @@ export function BloodPressureCard({ t }: { t: Telemetry }) {
       icon={<Gauge />}
       level={level}
       levelLabel={connected ? undefined : "Offline"}
-      className="min-h-[300px]"
+      className={cn("min-h-[300px]", className)}
     >
       {connected ? (
         <div className="flex flex-1 flex-col justify-center gap-4">
